@@ -22,12 +22,17 @@ export class TrabajodegradoService {
 
   public actualizar(trabajoDeGrado : TrabajoDeGrado) {
     return this.http.doPut<TrabajoDeGrado, any>(`${environment.endpoint}/trabajodegrado`, trabajoDeGrado,
-                                                this.http.optsName('put trabajo de grado'));
+                                                this.http.optsName('actualizacion trabajo de grado'));
   }
 
   public eliminar(idTrabajoDeGrado: number) {
     return this.http.doDelete<boolean>(`${environment.endpoint}/trabajodegrado/${idTrabajoDeGrado}`,
                                           this.http.optsName('eliminar trabajos'));
+  }
+
+  public cancelar(trabajoDeGrado : TrabajoDeGrado) {
+    return this.http.doPut<TrabajoDeGrado, any>(`${environment.endpoint}/trabajodegrado/cancelar`, trabajoDeGrado,
+                                                this.http.optsName('cancelar trabajo de grado'));
   }
 
 }

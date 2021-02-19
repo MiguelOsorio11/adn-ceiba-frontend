@@ -39,23 +39,35 @@ export class CrearTrabajodegradoComponent implements OnInit {
     this.fechaCitaDefault = Date.parse(today.toISOString().split('T')[0]);
   }
 
-  crear(citaModal){
+  crear(citaModal, primeraEntrada){
     
-    this.trabajoDeGrado.idUsuario = 1; //POR EL MOMENTO
-    this.trabajoDeGrado.estado = EstadoTrabajoDeGrado.EN_ESPERA;
-    this.trabajoDeGradoService.guardar(this.trabajoDeGrado).subscribe(
-      response => {
-        
-        swal.fire('Creación del trabajo de grado con exito', `Trabajo de grado creado con id ${response.valor}`);
-        this.citaTrabajoDeGrado.idTrabajoDeGrado = response.valor;
-        //open dialog to create an appointment
-        this.openVerticallyCentered(citaModal) 
-      }
-    );
+    if(primeraEntrada){
+
+      this.trabajoDeGrado.idUsuario = 1; //POR EL MOMENTO
+      this.trabajoDeGrado.estado = EstadoTrabajoDeGrado.EN_ESPERA;
+      this.trabajoDeGradoService.guardar(this.trabajoDeGrado).subscribe(
+        response => {
+          
+          swal.fire('Creación del trabajo de grado con exito', `Trabajo de grado creado con id ${response.valor}`);
+          this.citaTrabajoDeGrado.idTrabajoDeGrado = response.valor;
+          //open dialog to create an appointment
+          this.openVerticallyCentered(citaModal) 
+        },
+        error => { 
+          swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.error.mensaje
+          })
+        }
+      );
+    }else{
+      //open dialog to create an appointment
+      this.openVerticallyCentered(citaModal) 
+    }
   }
 
   obtenerCotizacion(valorCotizacion : number){
-    console.log("Valor cotizacion:" + valorCotizacion)
     this.trabajoDeGrado.valor = valorCotizacion;
   }
 
@@ -64,11 +76,11 @@ export class CrearTrabajodegradoComponent implements OnInit {
     this.modalService.open(citaModal, { centered: true }).result.then(
       result =>{
          console.log("FECHA HORA SELECCIONADA:" +result)
-         this.guardarCita();
+         this.guardarCita(citaModal);
       });
   }
 
-  private guardarCita(){
+  private guardarCita(citaModal){
 
     let fechaCitaString = this.citaTrabajoDeGrado.fechaCita.toString();
     var fechaSinT = fechaCitaString.replace("T", " ").concat(":00"); 
@@ -76,6 +88,13 @@ export class CrearTrabajodegradoComponent implements OnInit {
     this.citaService.guardar(this.citaTrabajoDeGrado).subscribe(
       result => {
         swal.fire('Cita agendada', `Se crea la cita con identificador ${result.valor}`);
+      },
+      error => { 
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.error.mensaje
+        }).then( () => this.crear(citaModal,false))
       }
     )
   }

@@ -44,17 +44,37 @@ export class ListarTrabajodegradoComponent implements OnInit {
 
   private actualizar(){
     this.trabajoDeGradoService.actualizar(this.trabajoDeGrado).subscribe(
-      () => swal.fire('¿Actualización exitosa!', `El trabajo de grado se ha actualizado satisfactoriamente`)
+      () => swal.fire('¡Actualización exitosa!', `El trabajo de grado se ha actualizado satisfactoriamente`)
                 .then( 
                         () => this.listarTrabajosDeGradoPorUsuario()
-                      )
+                      ),
+      error => { this.listarTrabajosDeGradoPorUsuario() 
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.error.mensaje
+        })
+      }
     )
   }
 
   eliminar(id:number, nombre :string){
     this.trabajoDeGradoService.eliminar(id).subscribe(
-        () => swal.fire('Eliminacion exitosa!', `El trabajo de grado ${nombre} se ha eliminado satisfactoriamente `)
+        () => swal.fire('¡Eliminacion exitosa!', `El trabajo de grado ${nombre} se ha eliminado satisfactoriamente `)
     );
+  }
+
+  cancelar(trabajoDeGrado : TrabajoDeGrado){
+    this.trabajoDeGradoService.cancelar(trabajoDeGrado).subscribe(
+      () => swal.fire('¡Cancelación exitosa!', `El trabajo de grado ${trabajoDeGrado.nombre} ha sido cancelado satisfactoriamente`),
+      error => { 
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.error.mensaje
+        })
+      }
+    )
   }
 
 }

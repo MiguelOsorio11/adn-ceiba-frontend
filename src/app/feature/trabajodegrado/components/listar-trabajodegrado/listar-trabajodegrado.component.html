@@ -41,6 +41,7 @@
                 <th>valor</th>
                 <th>Fecha de Confirmacion</th>
                 <th>Acción</th>
+                <th>Cancelar</th>
             </tr>            
         </thead>
         <tbody>
@@ -60,6 +61,7 @@
                 <ng-template #actualizarTG>
                     <td><button type="button" class="btn btn-info" (click)="abrirModalActualizacion(trabajoDeGrado,actualizarTrabajoDeGrado)">Actualizar</button></td>
                 </ng-template>
+                <td><button [disabled] ="!trabajoDeGrado.fechaConfirmacion || trabajoDeGrado.estado == 'Cancelado' " type="button" class="btn btn-warning" (click)="cancelar(trabajoDeGrado)">Cancelar</button></td>
             </tr>
         </tbody>
       </table>

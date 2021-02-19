@@ -25,7 +25,7 @@
   <div class="card-header">Cotización y creación trabajo de grado</div>
   <div class="card-body">
     
-    <form (ngSubmit) = "crear(citaModal)">
+    <form>
       <div class="form-group row">
         <label class="col-form-label col-sm-2" for ="nombre">Nombre:</label>
         <div class="form-group row">
@@ -51,7 +51,7 @@
       </div>
 
       <div class="col-sm-6">
-        <button mat-raised-button  role="button">Creación trabajo de grado</button>
+        <button mat-raised-button  type="button" class="btn btn-primary" (click)="crear(citaModal,true)">Creación trabajo de grado</button>
       </div>
     
     </form>
