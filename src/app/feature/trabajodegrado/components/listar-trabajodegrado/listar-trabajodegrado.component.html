@@ -10,28 +10,28 @@
             <div class="form-group row">
               <label class="col-form-label col-sm-2" for ="nombre">Nombre:</label>
               <div class="form-group row">
-                <input type="text" class="form-control" [(ngModel)]="trabajoDeGrado.nombre" name="nombre" >
+                <input id ="nombreActualizarTrabajo" type="text" class="form-control" [(ngModel)]="trabajoDeGrado.nombre" name="nombre" >
               </div>
             </div>
       
             <div class="form-group row">
               <label class="col-form-label col-sm-2"  for ="descripcion">Descripcion:</label>
               <div class="form-group row">
-                <input type="text" class="form-control" [(ngModel)]="trabajoDeGrado.descripcion" name="descripcion"  >
+                <input id ="descripcionActualizarTrabajo" type="text" class="form-control" [(ngModel)]="trabajoDeGrado.descripcion" name="descripcion"  >
               </div>
             </div>
             <br>
         </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Update click')">Actualizar</button>
+      <button id="botonActualizarTrabajoDeGrado" type="button" class="btn btn-outline-dark" (click)="modal.close('Update click')">Actualizar</button>
     </div>
 </ng-template>
 
 <!-- Update trabajo de grado part-->
-<div class="card border-dark mb-3" >
+<div class="card border-dark mb-3 container" >
     <div class="card-header">Trabajos de grado del usuario </div>
-    <div class="card-body text-dark">
+    <div class="card-body text-dark" >
       <table class="table table-bordered table-stripped">
         <thead>
             <tr>
@@ -44,24 +44,24 @@
                 <th>Cancelar</th>
             </tr>            
         </thead>
-        <tbody>
+        <tbody class="listaTrabajosDeGrado">
             <tr *ngFor="let trabajoDeGrado of trabajosDeGradoPorUsuario">
                 
                 <td>{{trabajoDeGrado.nombre}}</td>
-                <td>{{trabajoDeGrado.descripcion}}</td>
+                <td id="descripcionTG">{{trabajoDeGrado.descripcion}}</td>
                 <td>{{trabajoDeGrado.estado}}</td>
                 <td>{{trabajoDeGrado.valor}}</td>
                 <td *ngIf="trabajoDeGrado.fechaConfirmacion; else noFechaConfirmacion">{{trabajoDeGrado.fechaConfirmacion | date : "MMM d, y h:mm:ss a"}}</td>
                 <ng-template #noFechaConfirmacion>
                     <td>Sin confirmar</td>
                 </ng-template>
-                <td *ngIf="trabajoDeGrado.estado == 'FINALIZADO'; else actualizarTG">
+                <td *ngIf="trabajoDeGrado.estado == 'Finalizado'; else actualizarTG">
                      <button type="button" class="btn btn-danger" (click)="eliminar(trabajoDeGrado.id,trabajoDeGrado.nombre)">Eliminar</button>
                 </td>
                 <ng-template #actualizarTG>
-                    <td><button type="button" class="btn btn-info" (click)="abrirModalActualizacion(trabajoDeGrado,actualizarTrabajoDeGrado)">Actualizar</button></td>
+                    <td><button id="botonAbrirModalActualizacion" type="button" class="btn btn-info" (click)="abrirModalActualizacion(trabajoDeGrado,actualizarTrabajoDeGrado)">Actualizar</button></td>
                 </ng-template>
-                <td><button [disabled] ="!trabajoDeGrado.fechaConfirmacion || trabajoDeGrado.estado == 'Cancelado' " type="button" class="btn btn-warning" (click)="cancelar(trabajoDeGrado)">Cancelar</button></td>
+                <td><button [disabled] ="!trabajoDeGrado.fechaConfirmacion || trabajoDeGrado.estado == 'Cancelado' || trabajoDeGrado.estado == 'Finalizado'" type="button" class="btn btn-warning" (click)="cancelar(trabajoDeGrado)">Cancelar</button></td>
             </tr>
         </tbody>
       </table>

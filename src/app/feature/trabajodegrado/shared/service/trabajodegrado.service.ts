@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '@core/services/http.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { TrabajoDeGrado } from '../model/TrabajoDeGrado';
 
@@ -21,6 +23,7 @@ export class TrabajodegradoService {
   }
 
   public actualizar(trabajoDeGrado : TrabajoDeGrado) {
+    console.log(trabajoDeGrado);
     return this.http.doPut<TrabajoDeGrado, any>(`${environment.endpoint}/trabajodegrado`, trabajoDeGrado,
                                                 this.http.optsName('actualizacion trabajo de grado'));
   }
@@ -33,6 +36,17 @@ export class TrabajodegradoService {
   public cancelar(trabajoDeGrado : TrabajoDeGrado) {
     return this.http.doPut<TrabajoDeGrado, any>(`${environment.endpoint}/trabajodegrado/cancelar`, trabajoDeGrado,
                                                 this.http.optsName('cancelar trabajo de grado'));
+  }
+
+  public obtenerTrabajoDeGrado(id: number) : Observable<TrabajoDeGrado> {
+    return this.http.doGet<TrabajoDeGrado>(`${environment.endpoint}/trabajodegrado/obtener/${id}`, 
+                                              this.http.optsName('consulta trabajo de grado por id'))
+                                              .pipe( map( response => response as TrabajoDeGrado));
+  }
+
+  public consultarTrabajosDeGradoSinCita() {
+    return this.http.doGet<TrabajoDeGrado[]>(`${environment.endpoint}/trabajodegrado/sinCita`, 
+                                              this.http.optsName('consultar trabajos de grado sin asignación de citas'));
   }
 
 }

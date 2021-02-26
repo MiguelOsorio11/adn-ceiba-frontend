@@ -1,7 +1,7 @@
-import { by, element } from 'protractor';
+//import { by, element } from 'protractor';
 
 export class ProductoPage {
-    private linkCrearProducto = element(by.id('linkCrearProducto'));
+   /* private linkCrearProducto = element(by.id('linkCrearProducto'));
     private linkListarProductos = element(by.id('linkListarProducto'));
     private inputIdProducto = element(by.id('idProducto'));
     private inputDescripcionProducto = element(by.id('descripcionProducto'));
@@ -25,5 +25,5 @@ export class ProductoPage {
 
     async contarProductos() {
         return this.listaProductos.count();
-    }
+    }*/
 }

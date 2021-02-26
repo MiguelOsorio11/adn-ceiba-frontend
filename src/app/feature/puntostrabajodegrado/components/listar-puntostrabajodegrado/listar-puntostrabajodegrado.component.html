@@ -1,10 +1,10 @@
-<div class="card border-primary mb-3 "  style="align-content: center">
+<div class="card border-primary mb-3 container" >
     <div class="card-header">Puntos para realizar el trabajo de grado</div>
     <div class="card-body text-primary">
       <h5 class="card-title">Cotización de cada punto del trabajo de grado</h5>
     </div>
 
-    <table>
+    <table class="table table-bordered table-stripped">
         <thead>
             <tr>
                 <th>id</th>
@@ -13,18 +13,18 @@
                 <th>Seleccionar</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="listarPuntosTrabajoDeGrado">
             <tr *ngFor="let punto of listarPuntoTrabajoDeGrado | async">
                 <td>{{punto.id}}</td>
                 <td>{{punto.nombre}}</td>
                 <td>{{punto.valor}}</td>
-                <td><input #checkvalor type="checkbox" value="punto.valor" (change) ="realizarCotizacion($event,punto.valor)"></td>
+                <td><input id="checkPuntoTrabajoGrado" #checkvalor type="checkbox" value="punto.valor" (change) ="realizarCotizacion($event,punto.valor)"></td>
             </tr>
         </tbody>
     </table>
     <br>
     <div class="col-sm-4" style="margin: auto; margin-bottom: 1%;">
-        <button class="btn btn-success" (click)="notificarValorCotizacion.emit(valor)">Calcular Cotización</button>
+        <button  id ="botonCalcularValorTG"class="btn btn-success" (click)="notificarValorCotizacion.emit(valor)">Calcular Cotización</button>
     </div>
     
 </div>

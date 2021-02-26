@@ -21,7 +21,7 @@
 
 
 <!-- TRABAJO DE GRADO PART -->
-<div class="card border-primary mb-12">
+<div class="card border-primary mb-12 container">
   <div class="card-header">Cotización y creación trabajo de grado</div>
   <div class="card-body">
     
@@ -29,14 +29,14 @@
       <div class="form-group row">
         <label class="col-form-label col-sm-2" for ="nombre">Nombre:</label>
         <div class="form-group row">
-          <input type="text" class="form-control" [(ngModel)]="trabajoDeGrado.nombre" name="nombre" placeholder="Ingresar el nombre del trabajo de grado">
+          <input id="nombreTrabajoDeGrado" type="text" class="form-control" [(ngModel)]="trabajoDeGrado.nombre" name="nombre" placeholder="Ingresar el nombre del trabajo de grado">
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-form-label col-sm-2"  for ="descripcion">Descripcion:</label>
         <div class="form-group row">
-          <input type="text" class="form-control" [(ngModel)]="trabajoDeGrado.descripcion" name="descripcion" placeholder="Ingresar descripción">
+          <input id="descripcionTrabajoDeGrado" type="text" class="form-control" [(ngModel)]="trabajoDeGrado.descripcion" name="descripcion" placeholder="Ingresar descripción">
         </div>
       </div>
       <br>
@@ -46,12 +46,12 @@
       <div class="form-group row">
         <label class="lead col-form-label col-sm-2" >Cotización:</label>
         <div class="form-group row">
-            <p type ="number" style="width: 30% ;"><strong>{{trabajoDeGrado.valor}}</strong></p>
+            <p id="valorTrabajoDeGrado" type ="number" style="width: 30% ;"><strong>{{trabajoDeGrado.valor}}</strong></p>
         </div>
       </div>
 
       <div class="col-sm-6">
-        <button mat-raised-button  type="button" class="btn btn-primary" (click)="crear(citaModal,true)">Creación trabajo de grado</button>
+        <button id="buttonCrearTrabajoDeGrado"  type="button" class="btn btn-primary" (click)="crear(citaModal,true)">Creación trabajo de grado</button>
       </div>
     
     </form>

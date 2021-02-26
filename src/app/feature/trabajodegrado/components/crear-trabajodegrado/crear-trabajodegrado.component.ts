@@ -48,10 +48,12 @@ export class CrearTrabajodegradoComponent implements OnInit {
       this.trabajoDeGradoService.guardar(this.trabajoDeGrado).subscribe(
         response => {
           
-          swal.fire('Creación del trabajo de grado con exito', `Trabajo de grado creado con id ${response.valor}`);
-          this.citaTrabajoDeGrado.idTrabajoDeGrado = response.valor;
-          //open dialog to create an appointment
-          this.openVerticallyCentered(citaModal) 
+          swal.fire('Creación del trabajo de grado con exito', `Trabajo de grado creado con id ${response.valor}`).then(
+            () =>{ this.citaTrabajoDeGrado.idTrabajoDeGrado = response.valor;
+            //open dialog to create an appointment
+            this.openVerticallyCentered(citaModal) 
+          })
+          
         },
         error => { 
           swal.fire({
@@ -74,8 +76,7 @@ export class CrearTrabajodegradoComponent implements OnInit {
 
   openVerticallyCentered(citaModal) {
     this.modalService.open(citaModal, { centered: true }).result.then(
-      result =>{
-         console.log("FECHA HORA SELECCIONADA:" +result)
+      () =>{
          this.guardarCita(citaModal);
       });
   }

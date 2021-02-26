@@ -1,27 +1,45 @@
-<div class="card border-info mb-3" style="max-width: 18rem;">
-    <div class="card-header">Header</div>
-    <div class="card-body">
-      <h5 class="card-title">Reserva de cita </h5>
-      <p class="card-text">Para realizar el trabajo de grado se requiere agendar una cita y dialogar acerca de este</p>
-      
-      <div mat-dialog-content>
-        
-         
-      
-        <!-- <mat-form-field>
-          <mat-label>Seleccuibar Cita:</mat-label>
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </mat-form-field> -->
+<ng-template #modalCita let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Agendar Cita</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Se debe agendar una cita para dialogar acerca del trabajo de grado, por favor escoger fecha y hora.</p>
+    <div class="form-group row">
+      <label for="fechaHoraCita" class="col-2 col-form-label">Fecha y hora</label>
+      <div class="col-10">
+        <input class="form-control" type="datetime-local" id="fechaHoraCita" [(ngModel)]="cita.fechaCita" >
       </div>
-      <div mat-dialog-actions>
-        <!-- <button mat-button (click)="onNoClick()">No Thanks</button> -->
-        <!--<button mat-button [mat-dialog-close]= cdkFocusInitial>Confirmar Cita</button>-->
-      </div>
-
     </div>
+  </div>
+  <div class="modal-footer">
+    <button id="botonCrearCita" type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Guardar</button>
+  </div>
+</ng-template>
+
+<!-- Swowing trabajos de grado withou appoinment related -->
+<div class="card border-dark mb-6 container" >
+  <div class="card-header">Agengar citas por trabajo de grado</div>
+  <div class="card-body text-dark" >
+    <table class="table table-bordered table-stripped">
+      <thead>
+          <tr>
+              <th>Nombre</th>
+              <th>Estado</th>
+              <th>valor</th>
+              <th>Acción</th>
+          </tr>            
+      </thead>
+      <tbody class="listaTrabajosDeGradoSinAgendar">
+          <tr *ngFor="let trabajoDeGrado of trabajosDeGradoSinCitas | async">
+              <td>{{trabajoDeGrado.nombre}}</td>
+              <td>{{trabajoDeGrado.estado}}</td>
+              <td>{{trabajoDeGrado.valor}}</td>
+              <td><button id="botonAbrirModalAgendarCita" type="button" class="btn btn-primary" (click)="abrirModalCrearCita(modalCita,trabajoDeGrado.nombre,trabajoDeGrado.id)">Agendar Cita</button></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

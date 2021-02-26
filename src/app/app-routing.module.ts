@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [SecurityGuard]  },
   { path: 'trabajodegrado', 
      loadChildren: () => import('./feature/trabajodegrado/trabajodegrado.module')
-    .then(mod => mod.TrabajoDeGradoModule) }
+    .then(mod => mod.TrabajoDeGradoModule) },
+  { path: 'cita', loadChildren : () => import('./feature/cita/cita.module').then( mod => mod.CitaModule) }
   
 ];
 

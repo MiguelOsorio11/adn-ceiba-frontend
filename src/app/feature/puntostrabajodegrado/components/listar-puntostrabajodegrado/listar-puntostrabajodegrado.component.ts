@@ -12,8 +12,8 @@ export class ListarPuntostrabajodegradoComponent implements OnInit {
 
   public listarPuntoTrabajoDeGrado : Observable<PuntoTrabajoDeGrado[]>;
 
-  valor : number;
-  @Output() notificarValorCotizacion = new EventEmitter<Number>();
+  valor:number;
+  @Output() notificarValorCotizacion = new EventEmitter<number>();
 
   constructor(protected puntoTrabajoDeGradoService: PuntotrabajodegradoService) { 
     this.valor = 0;
