@@ -1,0 +1,39 @@
+<ng-template #confirmarTrabajo let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmación del trabajo de grado</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>¿Desea confirmar la realización del trabajo de grado = {{trabajoDeGrado.nombre}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">No</button>
+    <button type="button" ngbAutoFocus class="btn btn-primary" (click)="modal.close('Ok click')">Si</button>
+  </div>
+</ng-template>
+
+<!-- Update trabajo de grado part-->
+<div class="card border-dark mb-3 content" >
+    <div class="card-header">Citas del día actual por usuario </div>
+    <div class="card-body text-dark">
+      <table class="table table-bordered table-stripped">
+        <thead>
+            <tr>
+                <th>Identificador Trabajo de grado</th>
+                <th>Fecha Cita</th>
+                <th>Acción</th>
+            </tr>            
+        </thead>
+        <tbody>
+            <tr id="listaCitasPorUsuario" *ngFor="let cita of citasPorUsuario | async">
+                
+                <td>{{cita.idTrabajoDeGrado}}</td>
+                <td>{{cita.fechaCita | date : "MMM d, y h:mm:ss a"}}</td>
+                <td><button type="button" class="btn btn-info" (click)="abrirModalAtenderCita(confirmarTrabajo,cita.idTrabajoDeGrado)">Ingresar</button></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
